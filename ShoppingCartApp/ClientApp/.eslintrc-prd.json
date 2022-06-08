@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json.schemastore.org/eslintrc.json",
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:eslint-comments/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:react/recommended",
+    "airbnb-typescript",
+    "airbnb/hooks"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "parserOptions": {
+        "project": [
+          "./tsconfig.json"
+        ]
+      }
+    }
+  ],
+  "parserOptions": {
+    "createDefaultProgram": true,
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "plugins": [
+    "import",
+    "react",
+    "@typescript-eslint"
+    // "jsdoc"
+  ],
+  "rules": {
+    // Disallows empty block statements
+    "no-empty": "error",
+    // Aims to ensure that only meaningful interfaces are declared in the code.
+    "@typescript-eslint/no-empty-interface": "error",
+    // Disallows explicit type declarations on parameters, variables and properties where the type can be easily inferred from its value
+    "@typescript-eslint/no-inferrable-types": "off",
+    // Enforces consistent use of trailing commas in object and array literals.
+    "@typescript-eslint/comma-dangle": "off",
+    // Enforce return type to be declared, even for void functions
+    "@typescript-eslint/explicit-module-boundary-types": "warn",
+    // Get rid of unused variables
+    "@typescript-eslint/no-unused-vars": "warn",
+    // Disallow the use of type any
+    "@typescript-eslint/no-explicit-any": "off",
+    //Require explicit return types on functions and class methods.
+    "@typescript-eslint/explicit-function-return-type": "error",
+    // Forbid the import of external modules that are not declared in the package.json's dependencies, devDependencies
+    "import/no-extraneous-dependencies": "off",
+    // Ensure all variables inside useEffect are added to the depedency array
+    "react-hooks/exhaustive-deps": "off",
+    //This rule improves readability by enforcing lines between class members.
+    //It will not check empty lines before the first member and after the last member.
+    //This rule require or disallow an empty line between class members.
+    "@typescript-eslint/lines-between-class-members": "off",
+    // Commenting Rules - Types can be excluded because typescript already provides this
+    "spaced-comment": 1
+  },
+  "ignorePatterns": [
+    "*.scss.d.ts",
+    "*.module.scss.ts",
+    "*.js",
+    "src/**/*.test.ts",
+    "src/old/*",
+    // Ignoring WebPart.ts files since it's mostly boilerplate code
+    "*WebPart.ts"
+  ]
+}

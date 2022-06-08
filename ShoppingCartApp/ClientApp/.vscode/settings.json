@@ -1,0 +1,13 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "git.ignoreLimitWarning": true,
+    "eslint.workingDirectories": [
+        "./"
+    ],
+    "typescript.tsdk": ".\\node_modules\\typescript\\lib",
+    "editor.tabSize": 2,
+    "editor.tabCompletion": "on",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": false
+    }
+}

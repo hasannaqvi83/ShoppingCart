@@ -1,0 +1,78 @@
+{
+  "name": "ShoppingCart",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~4.6.1",
+    "jquery": "~3.6.0",
+    "merge": "^2.1.1",
+    "oidc-client": "~1.11.5",
+    "react": "16.14.0",
+    "react-dom": "16.14.0",
+    "react-router-bootstrap": "^0.25.0",
+    "react-router": "~5.2.1",
+    "react-router-dom": "~5.3.0",
+    "reactstrap": "~8.10.1",
+    "rimraf": "^3.0.2",
+    "axios": "0.27.2",
+    "react-toastify": "9.0.1",
+    "react-lazy-load-image-component": "^1.5.1",
+    "mobx": "5.15.0",
+    "mobx-react": "6.1.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.13"
+  },
+  "devDependencies": {
+    "@types/history": "^4.7.3",
+    "@types/react": "16.9.56",
+    "@types/react-dom": "16.9.8",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "4.31.0",
+    "@typescript-eslint/parser": "4.31.0",
+    "ajv": "^6.9.1",
+    "cross-env": "^5.2.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^19.0.0",
+    "eslint-config-airbnb-typescript": "^15.0.0",
+    "eslint-config-react-app": "^5.2.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-github": "^4.3.5",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsdoc": "^37.0.3",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.27.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "nan": "^2.14.1",
+    "react-scripts": "^5.0.0",
+    "typescript": "^3.7.5"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "scripts": {
+    "start": "rimraf ./build && react-scripts start",
+    "build": "react-scripts build",
+    "test": "cross-env CI=true react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "eslint ./src/ -c .eslintrc.json --ext .js,.jsx,.ts,.tsx .",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "resolutions": {
+    "url-parse": ">=1.5.0",
+    "lodash": ">=4.17.21"
+  }
+}

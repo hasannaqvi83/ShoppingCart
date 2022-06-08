@@ -1,0 +1,21 @@
+.product_card_item_wrapper {
+    height: 250px;
+}
+
+.product_card_item_image_wrapper {
+    height: 92px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product_card_item_image {
+    width: 150px;
+    margin-top: 20px;
+}
+
+.product_price {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+}

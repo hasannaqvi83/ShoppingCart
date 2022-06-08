@@ -1,0 +1,82 @@
+import React, { Component } from 'react';
+import './Setup.css';
+export class Setup extends Component {
+  static displayName = Setup.name;
+
+  constructor(props) {
+    super(props);
+    this.state = { currentCount: 0 };
+    this.incrementCounter = this.incrementCounter.bind(this);
+  }
+
+  incrementCounter() {
+    this.setState({
+      currentCount: this.state.currentCount + 1
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        {/* <h1>Cart Provisioning</h1> */}
+
+        {/* <p>This is a simple example of a React component.</p>
+
+                <p aria-live="polite">Current count: <strong>{this.state.currentCount}</strong></p>
+
+                <button className="btn btn-primary" onClick={this.incrementCounter}>Increment</button> */}
+
+        <div className="container-fluid px-1 py-5 mx-auto">
+          <div className="row d-flex justify-content-center">
+            <div className="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+              <h3>Request a Demo</h3>
+              <p class="blue-text">Just answer a few questions<br /> so that we can personalize the right experience htmlFor you.</p>
+              <div className="card">
+                <h5 className="text-center mb-4">Powering world-class companies</h5>
+                <form class="form-card" onSubmit="event.preventDefault()">
+                  {/* <div className="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                      <label class="form-control-label px-1">First name<span class="text-danger"> *</span></label>
+                      <input required type="text" id="fname" name="fname" placeholder="Enter your first name" onBlur="validate(1)" />
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                      <label class="form-control-label px-1">Last name<span class="text-danger"> *</span></label>
+                      <input type="text" id="lname" name="lname" placeholder="Enter your last name" onBlur="validate(2)" />
+                    </div>
+                  </div>
+                  <div className="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                      <label class="form-control-label px-1">Business email<span class="text-danger"> *</span></label>
+                      <input type="text" id="email" name="email" placeholder="" onBlur="validate(3)" />
+                    </div>
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                      <label class="form-control-label px-1">Phone number<span class="text-danger"> *</span></label>
+                      <input type="text" id="mob" name="mob" placeholder="" onBlur="validate(4)" />
+                    </div>
+                  </div>
+                  <div className="row justify-content-between text-left">
+                    <div class="form-group col-sm-6 flex-column d-flex">
+                      <label class="form-control-label px-1">Job title<span class="text-danger"> *</span></label>
+                      <input type="text" id="job" name="job" placeholder="" onBlur="validate(5)" />
+                    </div>
+                  </div> */}
+                  <div className="row justify-content-between text-left">
+                    <div class="form-group col-12 flex-column d-flex">
+                      <label class="form-control-label px-1">What would you be using Flinks for?<span class="text-danger"> *</span></label>
+                      <input type="text" id="ans" name="ans" placeholder="" onBlur="validate(6)" />
+                    </div>
+                  </div>
+                  <div className="row justify-content-end">
+                    <div className="form-group col-sm-6">
+                      <button type="submit" class="btn-block btn-primary">Request a demo</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
