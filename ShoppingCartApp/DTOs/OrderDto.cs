@@ -1,4 +1,4 @@
-using ShoppingCart.Models;
+using ShoppingCart.Data.Entities;
 using System;
 using System.Collections.Generic;
 

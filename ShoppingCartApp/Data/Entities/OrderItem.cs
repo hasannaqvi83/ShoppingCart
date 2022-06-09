@@ -1,4 +1,4 @@
-namespace ShoppingCart.Models
+namespace ShoppingCart.Data.Entities
 {
     public class OrderItem
     {

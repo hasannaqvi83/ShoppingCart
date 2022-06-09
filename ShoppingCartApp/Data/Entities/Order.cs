@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ShoppingCart.Models
+namespace ShoppingCart.Data.Entities
 {
     public class Order
     {
@@ -12,7 +12,7 @@ namespace ShoppingCart.Models
         public List<OrderItem> OrderItems { get; set; }
         public double Subtotal { get; set; }
         public double ShippingCost { get; set; }
-        
+
         public double Total
         {
             get

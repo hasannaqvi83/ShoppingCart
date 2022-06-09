@@ -23,7 +23,6 @@ export const Catalog: FC = (): ReactElement => {
     searchTerm: ''
   });
 
-
   useEffect(() => {
     let isMounted = true;
     window.scrollTo(0, 0);

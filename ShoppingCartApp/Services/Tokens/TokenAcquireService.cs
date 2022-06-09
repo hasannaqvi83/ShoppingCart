@@ -1,6 +1,5 @@
-﻿using ShoppingCart.Models;
-using Microsoft.AspNetCore.Authentication;
-using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Authentication;
+using ShoppingCart.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

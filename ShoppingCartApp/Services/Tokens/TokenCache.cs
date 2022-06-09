@@ -1,6 +1,6 @@
-﻿using ShoppingCart.Identity.User;
+﻿using Microsoft.AspNetCore.Identity;
+using ShoppingCart.Identity.User;
 using ShoppingCart.Models;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;

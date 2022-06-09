@@ -1,9 +1,9 @@
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ShoppingCart.Data.Entities;
 using ShoppingCart.DTOs;
-using ShoppingCart.Models;
+using System.Linq;
 
-namespace API.Extensions
+namespace ShoppingCart.Data.Extensions
 {
     public static class OrderExtensions
     {

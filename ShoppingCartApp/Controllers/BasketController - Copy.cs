@@ -1,29 +1,30 @@
 using API.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ShoppingCart.Data;
 using ShoppingCart.Data.Entities;
 using ShoppingCart.Data.Extensions;
-using ShoppingCart.Data.UOW.Interfaces;
 using ShoppingCart.DTOs;
 using ShoppingCart.Exceptions;
 using ShoppingCart.Identity.User;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoppingCart.Controllers
 {
-    public class BasketController : BaseApiController<BasketController>
+    public class BasketController2 : BaseApiControllerOld<BasketController>
     {
-        public BasketController(IUnitOfWork db, IUserIdentity user, ILogger<BasketController> logger) : base(db, user, logger)
+        public BasketController2(ShoppingContext db, IUserIdentity user, ILogger<BasketController> logger) : base(db, user, logger)
         {
         }
 
         [HttpGet]
         public async Task<ActionResult<BasketDto>> GetBasket()
         {
-            var basket = await _db.Baskets.GetBasketAsync(_user.Id);
+            var basket = await RetrieveBasket();
             if (basket == null) return NotFound();
             return basket.MapBasketToDto();
         }
@@ -31,7 +32,16 @@ namespace ShoppingCart.Controllers
         [HttpGet("shippingCost")]
         public async Task<ActionResult<double>> GetShippingCost()
         {
-            return await _db.Baskets.GetShippingCostAsync(_user.Id);
+            var basket = await _db.Baskets
+            .RetrieveBasketWithItems(BuyerId)
+            .FirstOrDefaultAsync();
+
+            if (basket == null) return NotFound();
+
+            var subtotal = basket.Items.Sum(item => item.Product.Price * item.Quantity);
+
+            //The checkout page will call a backend to calculate the total shipping cost. $10 shipping cost for orders less of $50 dollars and less. $20 for orders more than $50.
+            return subtotal.CalculateShippingCost();
         }
 
         [HttpPost]
@@ -41,22 +51,21 @@ namespace ShoppingCart.Controllers
             try
             {
                 //lets retrive users basket and if its not available lets set it up
-                var basket = await _db.Baskets.GetBasketAsync(_user.Id);
+                var basket = await RetrieveBasket();
                 if (basket == null)
                 {
-                    basket = new Basket { BuyerId = _user.Id };
-                    await _db.Baskets.AddAsync(basket);
+                    basket = CreateBasket();
                 }
 
                 //now lets find the product that user has requested to add
-                var product = await _db.Products.GetByIdAsync(productId);
+                var product = await _db.Products.FindAsync(productId);
                 if (product == null)
                 {
                     return BadRequest(new ProblemDetails { Title = "Product not found" });
                 }
 
                 //now add product in the basket
-                await _db.BasketItems.AddBasketItemAsync(basket, productId, quantity);
+               // basket.AddItem(product, quantity);
 
                 //lets save our chagnes
                 var result = await _db.SaveChangesAsync() > 0;
@@ -87,23 +96,21 @@ namespace ShoppingCart.Controllers
             try
             {
                 //lets retrive users basket and if its not available lets set it up
-                var basket = await _db.Baskets.GetBasketAsync(_user.Id);
+                var basket = await RetrieveBasket();
                 if (basket == null)
                 {
-                    basket = new Basket { BuyerId = _user.Id };
-                    await _db.Baskets.AddAsync(basket);
+                    basket = CreateBasket();
                 }
 
                 //now lets find the product that user has requested to add
-                var product = await _db.Products.GetByIdAsync(productId);
+                var product = await _db.Products.FindAsync(productId);
                 if (product == null)
                 {
                     return BadRequest(new ProblemDetails { Title = "Product not found" });
                 }
 
                 //now add product in the basket
-                //basket.UpdateItem(product, totalQuantity);
-                await _db.BasketItems.UpdateItemAsync(basket.Id, productId, totalQuantity);
+               // basket.UpdateItem(product, totalQuantity);
 
                 //lets save our chagnes
                 var result = await _db.SaveChangesAsync() > 0;
@@ -140,11 +147,11 @@ namespace ShoppingCart.Controllers
         {
             try
             {
-                var basket = await _db.Baskets.GetBasketAsync(_user.Id);
+                var basket = await RetrieveBasket();
 
                 if (basket != null)
                 {
-                    await _db.BasketItems.RemoveItemAsync(basket.Id, productId);
+                   // basket.RemoveItem(productId);
 
                     var result = await _db.SaveChangesAsync() > 0;
 
@@ -162,5 +169,39 @@ namespace ShoppingCart.Controllers
                 throw new MiddlewareException(ExceptionCode.ApplicationError, "An error has occurred.");
             }
         }
+
+        //[HttpGet("total")]
+        //public async Task<ActionResult<int>> GetBasketTotal()
+        //{
+        //    return 10;
+        //}
+
+        private async Task<Basket> RetrieveBasket()
+        {
+            if (string.IsNullOrEmpty(BuyerId))
+                return null;
+
+            return await (from basket in _db.Baskets
+                                        .Include(basket => basket.Items)
+                                        .ThenInclude(basketItem => basketItem.Product)
+                          where basket.BuyerId == BuyerId
+                          select basket).FirstOrDefaultAsync();
+        }
+
+        private Basket CreateBasket()
+        {
+            var buyerId = _user.Id;
+            if (string.IsNullOrEmpty(buyerId))
+            {
+                buyerId = Guid.NewGuid().ToString();
+                var cookieOptions = new CookieOptions { IsEssential = true, Expires = DateTime.Now.AddDays(30) };
+                Response.Cookies.Append("buyerId", buyerId, cookieOptions);
+            }
+            var basket = new Basket { BuyerId = buyerId };
+            _db.Baskets.Add(basket);
+            return basket;
+        }
+
+
     }
 }

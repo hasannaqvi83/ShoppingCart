@@ -26,8 +26,6 @@ export default class App extends Component {
           <AuthorizeRoute exact path='/catalog' component={Catalog} />
           <AuthorizeRoute exact path='/basket' component={Cart} />
           <AuthorizeRoute exact path='/thank' component={ThankYou} />
-          {/* <Route exact path='/FinishConsent' component={FinishConsent} /> */}
-          {/* <Route path='/setup' component={Setup} /> */}
           <AuthorizeRoute path='/fetch-data' component={FetchData} />
           <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
         </Layout>

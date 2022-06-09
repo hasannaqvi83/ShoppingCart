@@ -1,41 +1,36 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ShoppingCart.Data;
+using ShoppingCart.Data.Entities;
+using ShoppingCart.Data.Extensions;
+using ShoppingCart.Data.UOW.Interfaces;
 using ShoppingCart.DTOs;
-using ShoppingCart.Extensions;
 using ShoppingCart.Identity.User;
-using ShoppingCart.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace API.Controllers
 {
     [Authorize]
     public class OrdersController : BaseApiController<OrdersController>
     {
-        public OrdersController(ShoppingContext db, IUserIdentity user, ILogger<OrdersController> logger) : base(db, user, logger)
+        public OrdersController(IUnitOfWork db, IUserIdentity user, ILogger<OrdersController> logger) : base(db, user, logger)
         {
         }
 
         [HttpGet("{id}", Name = "GetOrder")]
         public async Task<ActionResult<OrderDto>> GetOrder(int id)
         {
-            return await _db.Orders
-                .ProjectOrderToOrderDto()
-                .Where(x => x.BuyerId == User.Identity.Name && x.Id == id)
-                .FirstOrDefaultAsync();
+            return await _db.Orders.GetOrder(_user.Id, id);
         }
 
         [HttpPost]
         public async Task<ActionResult<int>> CreateOrder(CreateOrderDto orderDto)
         {
-            var basket = await _db.Baskets
-                .RetrieveBasketWithItems(BuyerId)
-                .FirstOrDefaultAsync();
+            var basket = await _db.Baskets.GetBasketAsync(_user.Id);
 
             if (basket == null) return BadRequest(new ProblemDetails { Title = "Could not locate basket" });
 
@@ -64,8 +59,8 @@ namespace API.Controllers
                 ShippingCost = subtotal.CalculateShippingCost()
             };
 
-            _db.Orders.Add(order);
-            _db.Baskets.Remove(basket);
+            await _db.Orders.AddAsync(order);
+            await _db.Baskets.RemoveByIdAsync(basket.Id);
 
             var result = await _db.SaveChangesAsync() > 0;
 

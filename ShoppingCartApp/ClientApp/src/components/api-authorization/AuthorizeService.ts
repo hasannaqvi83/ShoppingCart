@@ -213,7 +213,6 @@ export class AuthorizeService {
     }
 
     const settings = await response.json();
-    console.log('settings ', settings);
     settings.automaticSilentRenew = true;
     settings.includeIdTokenInSilentRenew = true;
     settings.userStore = new WebStorageStateStore({

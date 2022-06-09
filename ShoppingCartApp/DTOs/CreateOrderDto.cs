@@ -1,9 +1,9 @@
-using ShoppingCart.Models;
+using ShoppingCart.Data.Entities;
 
 namespace ShoppingCart.DTOs
 {
     public class CreateOrderDto
     {
-         public ShippingAddress ShippingAddress { get; set; }
+        public ShippingAddress ShippingAddress { get; set; }
     }
 }

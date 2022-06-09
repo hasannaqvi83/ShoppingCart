@@ -1,22 +1,21 @@
-using System;
-using System.Threading.Tasks;
 using API.Controllers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ShoppingCart.Data;
-using ShoppingCart.Identity.User;
-using ShoppingCart.Models;
-using ShoppingCart.Exceptions;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ShoppingCart.Data.Entities;
+using ShoppingCart.Data.UOW.Interfaces;
+using ShoppingCart.Exceptions;
+using ShoppingCart.Identity.User;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ShoppingCart.Controllers
 {
     [Authorize]
     public class CountriesController : BaseApiController<CountriesController>
     {
-        public CountriesController(ShoppingContext db, IUserIdentity user, ILogger<CountriesController> logger) : base(db, user, logger)
+        public CountriesController(IUnitOfWork db, IUserIdentity user, ILogger<CountriesController> logger) : base(db, user, logger)
         {
         }
 
@@ -26,7 +25,7 @@ namespace ShoppingCart.Controllers
             List<Country> list;
             try
             {
-                list = await _db.Country.ToListAsync();
+                list = await _db.Countries.GetAllAsync();
             }
             catch (Exception ex)
             {
@@ -36,7 +35,7 @@ namespace ShoppingCart.Controllers
             return list ?? new List<Country>();
         }
 
-      
+
 
 
     }

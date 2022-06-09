@@ -28,7 +28,7 @@
   "include": [
     "src/**/*",
     "./typings-custom/**/*.ts"
-, "src/setupTests.js"  ],
+    ,"src/setupTests.tsx"],
   "exclude": [
     "node_modules",
     "lib"

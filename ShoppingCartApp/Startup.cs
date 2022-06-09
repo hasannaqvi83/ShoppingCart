@@ -1,22 +1,20 @@
-using ShoppingCart.Data;
-using ShoppingCart.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ShoppingCart.Identity.User;
-using ShoppingCart.Services.Tokens;
 using ShoppingCart.ActionFilters;
+using ShoppingCart.Data;
+using ShoppingCart.Data.UOW.Interfaces;
+using ShoppingCart.Identity.User;
+using ShoppingCart.Models;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.AspNetCore.Identity;
+using UOW.Infrastructure.UOW;
+using UOW.Service.Service;
 
 namespace ShoppingCart
 {
@@ -90,9 +88,9 @@ namespace ShoppingCart
             //https://www.talkingdotnet.com/3-ways-to-use-httpclientfactory-in-asp-net-core-2-1/
             services.AddHttpClient();
 
-            //services.AddScoped<ITokenCache, TokenCache>();
             services.AddScoped<IUserIdentity, UserIdentity>();
-            //services.AddScoped<ITokenAcquireService, TokenAcquireService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient(typeof(BasketService), typeof(BasketService));
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

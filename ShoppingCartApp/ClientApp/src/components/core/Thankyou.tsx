@@ -5,7 +5,7 @@ export interface IThankYouProps { }
 
 export const ThankYou: React.FunctionComponent<IThankYouProps> = (props: React.PropsWithChildren<IThankYouProps>) => {
   const { state } = useLocation<{ orderId: string }>();
-  return (
+  return (state && state.orderId ?
     <>
       <div className="jumbotron text-center">
         <h1 className="display-3">Thank You!</h1>
@@ -16,5 +16,5 @@ export const ThankYou: React.FunctionComponent<IThankYouProps> = (props: React.P
         </p>
       </div>
     </>
-  );
+    : null);
 };

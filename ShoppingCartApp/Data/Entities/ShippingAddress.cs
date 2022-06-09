@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ShoppingCart.Models
+namespace ShoppingCart.Data.Entities
 {
     [Owned]
     public class ShippingAddress

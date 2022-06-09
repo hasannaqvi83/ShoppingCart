@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "12.1.2",
+    "@testing-library/user-event": "^13.5.0",
     "bootstrap": "~4.6.1",
     "jquery": "~3.6.0",
     "merge": "^2.1.1",
@@ -21,10 +24,14 @@
     "mobx-react": "6.1.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.13"
+    "@fortawesome/react-fontawesome": "^0.1.13",
+    "jest": "^24.9.0"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.12",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/history": "^4.7.3",
+    "@types/jest": "^28.1.1",
     "@types/react": "16.9.56",
     "@types/react-dom": "16.9.8",
     "@types/react-router-dom": "^5.3.3",
@@ -32,6 +39,8 @@
     "@typescript-eslint/parser": "4.31.0",
     "ajv": "^6.9.1",
     "cross-env": "^5.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-airbnb-typescript": "^15.0.0",
@@ -44,12 +53,17 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.27.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "msw": "^0.42.1",
     "nan": "^2.14.1",
     "react-scripts": "^5.0.0",
+    "react-test-renderer": "^18.1.0",
     "typescript": "^3.7.5"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
