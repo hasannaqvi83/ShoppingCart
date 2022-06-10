@@ -1,6 +1,6 @@
-﻿using ShoppingCart.Exceptions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using ShoppingCart.Exceptions;
 
 namespace ShoppingCart.ActionFilters
 {

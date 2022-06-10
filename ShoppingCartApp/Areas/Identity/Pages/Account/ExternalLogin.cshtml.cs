@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using ShoppingCart.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
+using ShoppingCart.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace ShoppingCart.Areas.Identity.Pages.Account
 {
@@ -75,7 +73,7 @@ namespace ShoppingCart.Areas.Identity.Pages.Account
             if (remoteError != null)
             {
                 ErrorMessage = $"Error from external provider: {remoteError}";
-                return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
+                return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -85,7 +83,7 @@ namespace ShoppingCart.Areas.Identity.Pages.Account
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
                 // Store the access token and resign in so the token is included in in the cookie
@@ -97,7 +95,7 @@ namespace ShoppingCart.Areas.Identity.Pages.Account
                 await _signInManager.SignInAsync(user, props, info.LoginProvider);
 
                 //await _signInManager.UpdateExternalAuthenticationTokensAsync(info);
-                Response.Cookies.Append("X-Access-Token", info.AuthenticationTokens.Where(token=>token.Name == "access_token").First().Value, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
+                Response.Cookies.Append("X-Access-Token", info.AuthenticationTokens.Where(token => token.Name == "access_token").First().Value, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
                 Response.Cookies.Append("X-Username", user.UserName, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
                 Response.Cookies.Append("X-Refresh-Token", info.AuthenticationTokens.Where(token => token.Name == "refresh_token").First().Value, new CookieOptions() { HttpOnly = true, SameSite = SameSiteMode.Strict });
 

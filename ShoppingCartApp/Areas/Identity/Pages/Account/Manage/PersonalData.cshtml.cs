@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using ShoppingCart.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using ShoppingCart.Models;
+using System.Threading.Tasks;
 
 namespace ShoppingCart.Areas.Identity.Pages.Account.Manage
 {

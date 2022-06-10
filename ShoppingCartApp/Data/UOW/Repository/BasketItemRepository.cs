@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ShoppingCart.Data;
 using ShoppingCart.Data.Entities;
 using ShoppingCart.Data.UOW.Interfaces;
@@ -6,7 +7,6 @@ using ShoppingCart.Data.UOW.Repository;
 using ShoppingCart.Exceptions;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 namespace UOW.Infrastructure.Repository
 {
     public class BasketItemRepository : GenericRepository<BasketItem>, IBasketItemRepository
@@ -21,7 +21,7 @@ namespace UOW.Infrastructure.Repository
         public async Task AddBasketItemAsync(Basket basket, int productId, int quantity)
         {
             //if no item matching product id is found
-            if ( basket.Items.All(item => item.ProductId != productId))
+            if (basket.Items.All(item => item.ProductId != productId))
             {
                 await AddAsync(new BasketItem { Basket = basket, ProductId = productId, Quantity = quantity });
             }

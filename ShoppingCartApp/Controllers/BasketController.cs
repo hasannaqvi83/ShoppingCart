@@ -1,8 +1,5 @@
-using API.Controllers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ShoppingCart.Data;
 using ShoppingCart.Data.Entities;
 using ShoppingCart.Data.Extensions;
 using ShoppingCart.Data.UOW.Interfaces;

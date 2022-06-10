@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ShoppingCart.Data;
+using ShoppingCart.Controllers;
 using ShoppingCart.Data.Entities;
 using ShoppingCart.Data.Extensions;
 using ShoppingCart.Data.UOW.Interfaces;

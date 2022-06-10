@@ -5,7 +5,6 @@ using ShoppingCart.Data.Entities;
 using ShoppingCart.Data.Extensions;
 using ShoppingCart.Data.UOW.Interfaces;
 using ShoppingCart.Data.UOW.Repository;
-using ShoppingCart.Exceptions;
 using System.Linq;
 using System.Threading.Tasks;
 

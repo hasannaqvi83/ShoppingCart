@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ShoppingCart.Data;
 using ShoppingCart.Data.UOW.Interfaces;
 using ShoppingCart.Identity.User;
 
-namespace API.Controllers
+namespace ShoppingCart.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

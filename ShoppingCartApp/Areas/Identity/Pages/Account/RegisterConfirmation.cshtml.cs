@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using System.Text;
-using System.Threading.Tasks;
-using ShoppingCart.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using ShoppingCart.Models;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ShoppingCart.Areas.Identity.Pages.Account
 {
