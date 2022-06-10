@@ -20,7 +20,7 @@ namespace ShoppingCart.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IEnumerable<Product>>> Get()
+        public async Task<ActionResult<IList<Product>>> GetAllAsync()
         {
             List<Product> list;
             try

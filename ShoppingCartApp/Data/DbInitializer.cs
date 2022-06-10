@@ -9,43 +9,44 @@ namespace ShoppingCart.Data
 {
     public static class DbInitializer
     {
-        public static async Task Initialize(ShoppingContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public static List<Country> GetCountries()
         {
-            //Setup roles
-            var adminRole = await roleManager.FindByNameAsync("Admin");
-            if (adminRole == null)
-            {
-                await roleManager.CreateAsync(new IdentityRole("Admin"));
-            }
-            if (await roleManager.FindByNameAsync("Member") == null)
-            {
-                await roleManager.CreateAsync(new IdentityRole("Member"));
-            }
-
-            if (!userManager.Users.Any())
-            {
-                var user = new AppUser
+            return new List<Country>
                 {
-                    UserName = "hasantest",
-                    Email = "hasan@test.com"
+                    new Country
+                    {
+                        Name = "Australia",
+                        CurrencyRate = 1,
+                        CurrencySymbol = "$",
+                        CurrencyCode = "AUD"
+                    },
+                     new Country
+                    {
+                        Name = "USA",
+                        CurrencyRate = 0.72255064,
+                        CurrencySymbol = "$",
+                        CurrencyCode = "USD"
+                    },
+                      new Country
+                    {
+                        Name = "UK",
+                        CurrencyRate = 0.57569287,
+                        CurrencySymbol = "£",
+                        CurrencyCode = "USD"
+                    },
+                     new Country
+                    {
+                        Name = "Japan",
+                        CurrencyRate = 94.459706,
+                        CurrencySymbol = "¥",
+                        CurrencyCode = "JPY"
+                    }
                 };
+        }
 
-                await userManager.CreateAsync(user, "P@ssw0rd");
-                await userManager.AddToRoleAsync(user, "Member");
-
-                var admin = new AppUser
-                {
-                    UserName = "admin",
-                    Email = "admin@test.com"
-                };
-
-                await userManager.CreateAsync(admin, "P@ssw0rd");
-                await userManager.AddToRolesAsync(admin, new[] { "Member", "Admin" });
-            }
-
-            if (!context.Products.Any())
-            {
-                var products = new List<Product>
+        public static List<Product> GetProducts()
+        {
+            return new List<Product>
                 {
                     new Product
                     {
@@ -115,8 +116,44 @@ namespace ShoppingCart.Data
                         PictureUrl = "https://res.cloudinary.com/du2bfoiba/image/upload/v1654263367/sample.jpg",
                     }
                 };
+        }
+        public static async Task Initialize(ShoppingContext context, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        {
+            //Setup roles
+            var adminRole = await roleManager.FindByNameAsync("Admin");
+            if (adminRole == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+            if (await roleManager.FindByNameAsync("Member") == null)
+            {
+                await roleManager.CreateAsync(new IdentityRole("Member"));
+            }
 
-                foreach (var product in products)
+            if (!userManager.Users.Any())
+            {
+                var user = new AppUser
+                {
+                    UserName = "hasantest",
+                    Email = "hasan@test.com"
+                };
+
+                await userManager.CreateAsync(user, "P@ssw0rd");
+                await userManager.AddToRoleAsync(user, "Member");
+
+                var admin = new AppUser
+                {
+                    UserName = "admin",
+                    Email = "admin@test.com"
+                };
+
+                await userManager.CreateAsync(admin, "P@ssw0rd");
+                await userManager.AddToRolesAsync(admin, new[] { "Member", "Admin" });
+            }
+
+            if (!context.Products.Any())
+            {
+                foreach (var product in GetProducts())
                 {
                     context.Products.Add(product);
                 }
@@ -124,39 +161,7 @@ namespace ShoppingCart.Data
 
             if (!context.Country.Any())
             {
-                var countries = new List<Country>
-                {
-                    new Country
-                    {
-                        Name = "Australia",
-                        CurrencyRate = 1,
-                        CurrencySymbol = "$",
-                        CurrencyCode = "AUD"
-                    },
-                     new Country
-                    {
-                        Name = "USA",
-                        CurrencyRate = 0.72255064,
-                        CurrencySymbol = "$",
-                        CurrencyCode = "USD"
-                    },
-                      new Country
-                    {
-                        Name = "UK",
-                        CurrencyRate = 0.57569287,
-                        CurrencySymbol = "£",
-                        CurrencyCode = "USD"
-                    },
-                     new Country
-                    {
-                        Name = "Japan",
-                        CurrencyRate = 94.459706,
-                        CurrencySymbol = "¥",
-                        CurrencyCode = "JPY"
-                    }
-                };
-
-                foreach (var country in countries)
+                foreach (var country in GetCountries())
                 {
                     context.Country.Add(country);
                 }
